@@ -1,1 +1,17 @@
+.container {
+	display: flex;
+	justify-content: center;
+}
 
+.grid {
+	display: grid;
+	grid-template-columns: repeat(16, max-content);
+	grid-template-rows: repeat(16, max-content);
+	gap: 0px;
+}
+
+.block {
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
+}
