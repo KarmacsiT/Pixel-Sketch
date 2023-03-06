@@ -1,6 +1,11 @@
 let isMouseDown;
+let userColor;
 
 window.onload = drawGrid();
+
+document.addEventListener("coloris:pick", (userColorPick) => {
+	userColor = userColorPick.detail.color;
+});
 
 function drawGrid() {
 	const container = document.querySelector(".grid");
@@ -32,9 +37,5 @@ function checkCellColoringCondition(cell) {
 }
 
 function setUserCellColor(cell) {
-	cell.style.backgroundColor = getUserSelectedColor();
-}
-
-function getUserSelectedColor() {
-	return document.querySelector(".user-color").value;
+	cell.style.backgroundColor = userColor;
 }
