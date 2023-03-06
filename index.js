@@ -1,3 +1,5 @@
+let isMouseDown;
+
 window.onload = drawGrid();
 
 function drawGrid() {
@@ -7,18 +9,32 @@ function drawGrid() {
 		let block = document.createElement("div");
 
 		block.classList.add("block");
-		block.addEventListener("mouseover", () => {
-			setRandomCellColor(block);
+		block.setAttribute("draggable", "false");
+
+		block.addEventListener("mousemove", () => {
+			checkCellColoringCondition(block);
+		});
+		block.addEventListener("mousedown", () => {
+			isMouseDown = true;
+		});
+		block.addEventListener("mouseup", () => {
+			isMouseDown = false;
 		});
 
 		container.appendChild(block);
 	}
 }
 
-function setRandomCellColor(cell) {
-	cell.style.backgroundColor = generateRandomColor();
+function checkCellColoringCondition(cell) {
+	if (isMouseDown) {
+		setUserCellColor(cell);
+	}
 }
 
-function generateRandomColor() {
-	return "#" + Math.floor(Math.random() * 16777215).toString(16);
+function setUserCellColor(cell) {
+	cell.style.backgroundColor = getUserSelectedColor();
+}
+
+function getUserSelectedColor() {
+	return document.querySelector(".user-color").value;
 }
