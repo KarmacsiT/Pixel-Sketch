@@ -1,17 +1,45 @@
+body {
+	background-color: gray;
+}
+
 .container {
 	display: flex;
+	position: relative;
 	justify-content: center;
+	min-width: 500px;
+	min-height: 500px;
+	margin: 20px 0;
+	background-image: url("images/tv.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(16, max-content);
-	grid-template-rows: repeat(16, max-content);
+	position: absolute;
+	max-width: 320px;
+	max-height: 320px;
+	left: 730px;
+	top: 69px;
+	grid-template-columns: repeat(16, minmax(20px, 1fr));
+	grid-template-rows: repeat(16, minmax(20px, 1fr));
 	gap: 0px;
 }
 
 .block {
-	height: 50px;
-	width: 50px;
-	border: 1px solid black;
+	border: 1px solid rgba(0, 0, 0, 0.082);
+	background-color: transparent;
 }
+
+/*@media screen and (min-width: 700px) {
+	.container {
+		background-size: 55% 97%;
+	}
+
+	.grid {
+		left: 266px;
+		top: 72px;
+		grid-template-columns: repeat(16, minmax(30px, 1fr));
+		grid-template-rows: repeat(16, minmax(30px, 1fr));
+	}
+}*/

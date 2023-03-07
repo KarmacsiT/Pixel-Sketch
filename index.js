@@ -7,10 +7,10 @@ document.addEventListener("coloris:pick", (userColorPick) => {
 	userColor = userColorPick.detail.color;
 });
 
-function drawGrid() {
+function drawGrid(gridSize = 16) {
 	const container = document.querySelector(".grid");
 
-	for (let i = 0; i < 256; i++) {
+	for (let i = 0; i < gridSize * gridSize; i++) {
 		let block = document.createElement("div");
 
 		block.classList.add("block");
@@ -23,6 +23,12 @@ function drawGrid() {
 			isMouseDown = true;
 		});
 		block.addEventListener("mouseup", () => {
+			isMouseDown = false;
+		});
+		block.addEventListener("drag", () => {
+			isMouseDown = false;
+		});
+		container.addEventListener("mouseleave", () => {
 			isMouseDown = false;
 		});
 
