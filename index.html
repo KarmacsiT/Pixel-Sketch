@@ -14,11 +14,21 @@
 		<script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
 	</head>
 	<body>
-		<h1>Etch-a-Sketch</h1>
-		<p>Color Picker:</p>
-		<input class="user-color" type="text" data-coloris />
-		<div class="container">
-			<div class="grid"></div>
+		<h1 class="title">Etch-a-Sketch</h1>
+		<div class="layout">
+			<div class="page-left">
+				<p class="color-paragraph">Color Picker:</p>
+				<input class="user-color" type="text" data-coloris />
+				<div class="button-wrapper">
+					<a class="resize-button eightbit-btn eightbit-btn--proceed"
+						>Resize Grid</a
+					>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="grid"></div>
+			</div>
 		</div>
 	</body>
 </html>
