@@ -17,11 +17,44 @@ function initializePage() {
 	drawGrid();
 }
 
-function getNewGridSize() {
-	let gridSize = prompt("Please enter your desired grid size!");
+async function getNewGridSize() {
 	const container = document.querySelector(".grid");
-	container.replaceChildren();
-	drawGrid(gridSize);
+
+	const { value: gridSize } = await Swal.fire({
+		title: "Resize Grid",
+		background: "#40454A",
+		color: "white",
+		input: "text",
+		inputLabel:
+			"Enter a number between 0 and 100. You can only generate square grids.",
+		confirmButtonText: "Resize!",
+		buttonStyling: false,
+		confirmButtonColor: "#f7d51d",
+		customClass: {
+			confirmButton: "eightbit-btn eightbit-btn--proceed",
+		},
+		showCloseButton: true,
+		showClass: {
+			popup: "animate__animated animate__fadeInDown",
+		},
+		hideClass: {
+			popup: "animate__animated animate__fadeOutUp",
+		},
+		inputValidator: (value) => {
+			if (!value) {
+				return "You can't leave this field blank.";
+			} else if (isNaN(value)) {
+				return "You have to input a numeric value!";
+			} else if (value < 0 || value > 100) {
+				return "You have to input a value between 0 and 100!";
+			}
+		},
+	});
+
+	if (gridSize) {
+		container.replaceChildren();
+		drawGrid(gridSize);
+	}
 }
 
 function drawGrid(gridSize = 16) {

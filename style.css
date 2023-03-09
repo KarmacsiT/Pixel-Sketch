@@ -97,7 +97,18 @@ body {
 .eightbit-btn--proceed:active {
 	box-shadow: inset 4px 4px 0px 0px #e59400;
 }
+.swal2-styled.swal2-confirm {
+	background-color: #f7d51d;
+}
 
+.swal2-title {
+	font-family: "Barlow Condensed", sans-serif;
+}
+
+.swal2-input-label {
+	font-family: "Montserrat", sans-serif;
+	font-size: 13px;
+}
 .grid {
 	display: grid;
 	position: absolute;
