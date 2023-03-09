@@ -30,13 +30,11 @@ body {
 	font-size: 20px;
 }
 
-.container {
+.page-right {
 	display: flex;
 	position: relative;
 	justify-content: center;
 	align-items: flex-start;
-	min-width: 500px;
-	min-height: 500px;
 	height: 840px;
 	width: 1100px;
 	margin-top: 30px;
@@ -50,7 +48,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
-	text-align: left;
 	justify-content: flex-start;
 	margin-top: 20px;
 }
@@ -141,10 +138,9 @@ body {
 	height: 520px;
 	left: 204px;
 	top: 125px;
-	gap: 0px;
 }
 
-.block {
+.cell {
 	border: 1px solid rgba(0, 0, 0, 0.082);
 	background-color: transparent;
 }

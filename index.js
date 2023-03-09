@@ -1,4 +1,4 @@
-let isMouseDown;
+let mouseDown;
 let userColor;
 let eraserActive = false;
 
@@ -40,15 +40,6 @@ function initializePage() {
 	window.addEventListener("mousemove", moveEraserCursor);
 
 	drawGrid();
-}
-
-function eraserMode() {
-	eraserActive = !eraserActive;
-	if (eraserActive) {
-		document.body.style.cursor = 'url("./cursor/eraser.cur"),auto';
-	} else {
-		document.body.style.cursor = "default";
-	}
 }
 
 async function getNewGridSize() {
@@ -95,43 +86,52 @@ function drawGrid(gridSize = 16) {
 	const grid = document.querySelector(".grid");
 
 	for (let i = 0; i < gridSize * gridSize; i++) {
-		let block = document.createElement("div");
+		let cell = document.createElement("div");
 
-		block.classList.add("block");
-		block.setAttribute("draggable", "false");
+		cell.classList.add("cell");
+		cell.setAttribute("draggable", "false");
 
-		block.addEventListener("mousemove", () => {
-			checkCellColoringCondition(block);
+		cell.addEventListener("mousemove", () => {
+			checkCellColoringCondition(cell);
 		});
-		block.addEventListener("mousedown", () => {
-			isMouseDown = true;
+		cell.addEventListener("mousedown", () => {
+			mouseDown = true;
 		});
-		block.addEventListener("mouseup", () => {
-			isMouseDown = false;
+		cell.addEventListener("mouseup", () => {
+			mouseDown = false;
 		});
-		block.addEventListener("drag", () => {
-			isMouseDown = false;
+		cell.addEventListener("drag", () => {
+			mouseDown = false;
 		});
 		grid.addEventListener("mouseleave", () => {
-			isMouseDown = false;
+			mouseDown = false;
 		});
 
-		grid.appendChild(block);
+		grid.appendChild(cell);
 	}
 	grid.style.gridTemplateColumns = `repeat(${gridSize}, minmax(5px, 60px))`;
 	grid.style.gridTemplateRows = `repeat(${gridSize}, minmax(5px, 60px))`;
 }
 
 function checkCellColoringCondition(cell) {
-	if (isMouseDown && !eraserActive) {
+	if (mouseDown && !eraserActive) {
 		setUserCellColor(cell);
-	} else if (isMouseDown && eraserActive) {
+	} else if (mouseDown && eraserActive) {
 		eraseCellColor(cell);
 	}
 }
 
 function setUserCellColor(cell) {
 	cell.style.backgroundColor = userColor;
+}
+
+function eraserMode() {
+	eraserActive = !eraserActive;
+	if (eraserActive) {
+		document.body.style.cursor = 'url("./cursor/eraser.cur"),auto';
+	} else {
+		document.body.style.cursor = "default";
+	}
 }
 
 function eraseCellColor(cell) {
