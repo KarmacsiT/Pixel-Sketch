@@ -48,6 +48,8 @@ body {
 
 .button-wrapper {
 	display: flex;
+	flex-direction: column;
+	gap: 20px;
 	text-align: left;
 	justify-content: flex-start;
 	margin-top: 20px;
@@ -95,6 +97,18 @@ body {
 	border-left: 6px black solid;
 	border-right: 6px black solid;
 }
+.eightbit-btn--reset {
+	background: #e76e55;
+	box-shadow: inset -4px -4px 0px 0px #8c2022;
+}
+.eightbit-btn--reset:hover,
+.eightbit-btn--reset:focus {
+	background: #ce372b;
+	box-shadow: inset -6px -6px 0px 0px #8c2022;
+}
+.eightbit-btn--reset:active {
+	box-shadow: inset 4px 4px 0px 0px #8c2022;
+}
 .eightbit-btn--proceed {
 	background: #f7d51d;
 	box-shadow: inset -4px -4px 0px 0px #e59400;
@@ -107,6 +121,7 @@ body {
 .eightbit-btn--proceed:active {
 	box-shadow: inset 4px 4px 0px 0px #e59400;
 }
+
 .swal2-styled.swal2-confirm {
 	background-color: #f7d51d;
 }

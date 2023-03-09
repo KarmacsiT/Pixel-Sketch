@@ -1,20 +1,54 @@
 let isMouseDown;
 let userColor;
+let eraserActive = false;
+
+const moveEraserCursor = (e) => {
+	const mouseY = e.clientY;
+	const mouseX = e.clientX;
+	const customCursor = document.getElementById("customCursor");
+
+	customCursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+};
 
 window.onload = initializePage();
 
 document.addEventListener("coloris:pick", (userColorPick) => {
 	userColor = userColorPick.detail.color;
+	eraserActive = false;
 });
 
 function initializePage() {
-	let resizeButton =
-		document.querySelector(".button-wrapper").firstElementChild;
+	const eraserButton = document
+		.querySelector(".button-wrapper")
+		.children.item(0);
+	const resizeButton = document
+		.querySelector(".button-wrapper")
+		.children.item(1);
+	const clearButton = document
+		.querySelector(".button-wrapper")
+		.children.item(2);
+	eraserButton.onclick = function () {
+		eraserMode();
+	};
 	resizeButton.onclick = function () {
 		getNewGridSize();
 	};
+	clearButton.onclick = function () {
+		clearGrid();
+	};
+
+	window.addEventListener("mousemove", moveEraserCursor);
 
 	drawGrid();
+}
+
+function eraserMode() {
+	eraserActive = !eraserActive;
+	if (eraserActive) {
+		document.body.style.cursor = 'url("./cursor/eraser.cur"),auto';
+	} else {
+		document.body.style.cursor = "default";
+	}
 }
 
 async function getNewGridSize() {
@@ -58,7 +92,7 @@ async function getNewGridSize() {
 }
 
 function drawGrid(gridSize = 16) {
-	const container = document.querySelector(".grid");
+	const grid = document.querySelector(".grid");
 
 	for (let i = 0; i < gridSize * gridSize; i++) {
 		let block = document.createElement("div");
@@ -78,22 +112,36 @@ function drawGrid(gridSize = 16) {
 		block.addEventListener("drag", () => {
 			isMouseDown = false;
 		});
-		container.addEventListener("mouseleave", () => {
+		grid.addEventListener("mouseleave", () => {
 			isMouseDown = false;
 		});
 
-		container.appendChild(block);
+		grid.appendChild(block);
 	}
-	container.style.gridTemplateColumns = `repeat(${gridSize}, minmax(5px, 60px))`;
-	container.style.gridTemplateRows = `repeat(${gridSize}, minmax(5px, 60px))`;
+	grid.style.gridTemplateColumns = `repeat(${gridSize}, minmax(5px, 60px))`;
+	grid.style.gridTemplateRows = `repeat(${gridSize}, minmax(5px, 60px))`;
 }
 
 function checkCellColoringCondition(cell) {
-	if (isMouseDown) {
+	if (isMouseDown && !eraserActive) {
 		setUserCellColor(cell);
+	} else if (isMouseDown && eraserActive) {
+		eraseCellColor(cell);
 	}
 }
 
 function setUserCellColor(cell) {
 	cell.style.backgroundColor = userColor;
+}
+
+function eraseCellColor(cell) {
+	cell.style.backgroundColor = "transparent";
+}
+
+function clearGrid() {
+	const grid = document.querySelector(".grid");
+
+	for (const cell of grid.childNodes) {
+		cell.style.backgroundColor = "transparent";
+	}
 }
