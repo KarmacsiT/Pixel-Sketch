@@ -144,3 +144,9 @@ body {
 	border: 1px solid rgba(0, 0, 0, 0.082);
 	background-color: transparent;
 }
+
+.footer {
+	font-family: "Press Start 2P", cursive;
+	font-size: 15;
+	text-align: center;
+}
